@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <style>
+  table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+  </style>
+    <title>Nova Robotics Welder</title>
+  </head>
+
+  <body>
+    <br>
+    <br>
+    <br>
+    <img src="http://192.168.0.17:8082" width=50% align=right>
+
+    <form  action="/welder" method="post"><table border="0">
+      <tr><td></td><td><center>Theta Target</center></td><td><center>R Target</center></td><td><center>Z Target</center></td></tr>
+      <tr><td>Left Arm (Welder)</td>
+        <td><input type="number" name="left_theta_target" value="{{ left_theta_target }}"></td>
+        <td><input type="number" name="left_r_target" value="{{ left_r_target }}"></td>
+        <td><input type="number" name="left_z" value="{{ left_z }}"></td></tr>
+      <tr><td>Right Arm (Grinder)</td>
+        <td><input type="number" name="right_theta_target" value="{{ right_theta_target }}"></td>
+        <td><input type="number" name="right_r_target" value="{{ right_r_target }}"></td>
+        <td><input type="number" name="right_z" value="{{ right_z }}"></td></tr></table>
+      <br>
+      <table border="0">
+      <tr><td><center>Travel</center></td><td><center>Speed</center></td><td><center>Trim</center></td></tr>
+      <tr><td><input type="number" name="distance" value="{{ distance }}"></td>
+        <td><input type="number" name="speed" value="{{ speed }}"></td>
+        <td><input type="number" name="trim" value="{{ trim }}"></td></tr></table>
+      <br>
+      <table border="0">
+      <tr><td><input type="number" name="wire_speed" value="{{ wire_speed }}">Wire Speed</td></tr></table>
+      <br>
+      <table border="0">
+      <tr><td><p><input type="submit" name="argon" value="Argon On"><br>
+        <input type="submit" name="argon" value="Argon Off"></td>
+        <td><input type="submit" name="welder" value="Welder On"><br>
+        <input type="submit" name="welder" value="Welder Off"></td>
+        <td><input type="submit" name="air" value="Air On"><br>
+        <input type="submit" name="air" value="Air Off"></td>
+        <td><input type="submit" name="led" value="Right LED On"><br>
+        <input type="submit" name="led" value="Left LED On"><br>
+        <input type="submit" name="led" value="Both LEDs On"><br>
+        <input type="submit" name="led" value="Both LEDs Off"></td></tr></table>
+      <p><input type="submit" name="submit" value="Submit"></p>
+      <p><input type="submit" name="submit" value="Reset All Values"></p>
+    </form>
+    <br>
+    <br>
+    <br>
+
+    <h6>Written by {{ author }} for Nova Robotics</h6>
+  </body>
+</html>

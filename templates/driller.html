@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <style>
+  table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+  </style>
+    <title>Nova Robotics Driller</title>
+  </head>
+
+  <body>
+    <br>
+    <br>
+    <br>
+    <img src="http://192.168.0.17:8082" width=50% align=right>
+
+    <form  action="/driller" method="post">
+      <table border="0">
+      <tr><td><center>Travel</center></td><td><center>Speed</center></td><td><center>Trim</center></td></tr>
+      <tr><td><input type="number" name="driveD" value="{{ driveD }}"></td>
+        <td><input type="number" name="driveS" value="{{ driveS }}"></td>
+        <td><input type="number" name="driveT" value="{{ driveT }}"></td></tr></table>
+      <br>
+      <table border="0">
+      <tr><td><center>Drill X</center></td><td><center>Drill Z</center></td></tr>
+        <tr><td><input type="number" name="drillX" value="{{ drillX }}"></td>
+        <td><input type="number" name="drillZ" value="{{ drillZ }}"></td></tr></table>
+      <br>
+      <table border="0">
+      <tr><td><p><input type="submit" name="led" value="LED On"><br>
+        <input type="submit" name="led" value="LED Off"></td>
+        <td><input type="submit" name="drill" value="Drill On"><br>
+        <input type="submit" name="drill" value="Drill Off"></td></tr></table>
+      <p><input type="submit" name="submit" value="Submit"></p>
+      <p><input type="submit" name="submit" value="Reset All Values"></p>
+    </form>
+    <br>
+    <br>
+    <br>
+
+    <h6>Written by {{ author }} for Nova Robotics</h6>
+  </body>
+</html>
