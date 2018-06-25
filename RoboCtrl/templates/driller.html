@@ -1,16 +1,23 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
   <style>
   table, th, td {
     border: 1px solid black;
     border-collapse: collapse;
   }
   </style>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css')}}">
+  <script src="{{url_for('static', filename='js/bootstrap.js')}}"></script>
     <title>Nova Robotics Driller</title>
   </head>
 
   <body>
+    <main role="main" class="container">
     <br>
     <br>
     <br>
@@ -29,17 +36,22 @@
         <td><input type="number" name="drillZ" value="{{ drillZ }}"></td></tr></table>
       <br>
       <table border="0">
-      <tr><td><p><input type="submit" name="led" value="LED On"><br>
-        <input type="submit" name="led" value="LED Off"></td>
-        <td><input type="submit" name="drill" value="Drill On"><br>
-        <input type="submit" name="drill" value="Drill Off"></td></tr></table>
-      <p><input type="submit" name="submit" value="Submit"></p>
-      <p><input type="submit" name="submit" value="Reset All Values"></p>
+      <tr><td><input class="btn btn-outline-primary btn-sm" type="submit" name="led" value="LED On"><br>
+        <input class="btn btn-outline-primary btn-sm" type="submit" name="led" value="LED Off"></td>
+        <td><input class="btn btn-outline-primary btn-sm" type="submit" name="drill" value="Drill On"><br>
+        <input class="btn btn-outline-primary btn-sm" type="submit" name="drill" value="Drill Off"></td></tr></table><br>
+      <p><input class="btn btn-outline-primary btn-sm" type="submit" name="submit" value="Submit"></p>
+      <p><input class="btn btn-outline-primary btn-sm" type="submit" name="submit" value="Reset All Values"></p>
     </form>
+  </main>
     <br>
     <br>
     <br>
 
-    <h6>Written by {{ author }} for Nova Robotics</h6>
+    <footer class="footer">
+      <div class="container">
+        <span class="text-muted">Written by {{ author }} for Nova Robotics.</span>
+      </div>
+    </footer>
   </body>
-</html>
+  </html>

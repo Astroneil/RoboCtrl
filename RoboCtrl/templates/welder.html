@@ -1,16 +1,23 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
   <style>
   table, th, td {
     border: 1px solid black;
     border-collapse: collapse;
   }
   </style>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css')}}">
+  <script src="{{url_for('static', filename='js/bootstrap.js')}}"></script>
     <title>Nova Robotics Welder</title>
   </head>
 
   <body>
+    <main role="main" class="container">
     <br>
     <br>
     <br>
@@ -37,23 +44,25 @@
       <tr><td><input type="number" name="wire_speed" value="{{ wire_speed }}">Wire Speed</td></tr></table>
       <br>
       <table border="0">
-      <tr><td><p><input type="submit" name="argon" value="Argon On"><br>
-        <input type="submit" name="argon" value="Argon Off"></td>
-        <td><input type="submit" name="welder" value="Welder On"><br>
-        <input type="submit" name="welder" value="Welder Off"></td>
-        <td><input type="submit" name="air" value="Air On"><br>
-        <input type="submit" name="air" value="Air Off"></td>
-        <td><input type="submit" name="led" value="Right LED On"><br>
-        <input type="submit" name="led" value="Left LED On"><br>
-        <input type="submit" name="led" value="Both LEDs On"><br>
-        <input type="submit" name="led" value="Both LEDs Off"></td></tr></table>
-      <p><input type="submit" name="submit" value="Submit"></p>
-      <p><input type="submit" name="submit" value="Reset All Values"></p>
+      <tr><td><input class="btn btn-outline-primary btn-sm" type="submit" name="argon" value="Argon On"><br>
+        <input class="btn btn-outline-primary btn-sm" type="submit" name="argon" value="Argon Off"></td>
+        <td><input class="btn btn-outline-primary btn-sm" type="submit" name="welder" value="Welder On"><br>
+        <input class="btn btn-outline-primary btn-sm" type="submit" name="welder" value="Welder Off"></td>
+        <td><input class="btn btn-outline-primary btn-sm" type="submit" name="air" value="Air On"><br>
+        <input class="btn btn-outline-primary btn-sm" type="submit" name="air" value="Air Off"></td>
+        <td><input class="btn btn-outline-primary btn-sm" type="submit" name="led" value="Right LED On"><br>
+        <input class="btn btn-outline-primary btn-sm" type="submit" name="led" value="Left LED On"><br></td>
+        <td><input class="btn btn-outline-primary btn-sm" type="submit" name="led" value="Both LEDs On"><br>
+        <input class="btn btn-outline-primary btn-sm" type="submit" name="led" value="Both LEDs Off"></td></tr></table><br>
+      <p><input class="btn btn-outline-primary btn-sm" type="submit" name="submit" value="Submit"></p>
+      <p><input class="btn btn-outline-primary btn-sm" type="submit" name="submit" value="Reset All Values"></p>
     </form>
-    <br>
-    <br>
-    <br>
+  </main>
 
-    <h6>Written by {{ author }} for Nova Robotics</h6>
+    <footer class="footer">
+      <div class="container">
+        <span class="text-muted">Written by {{ author }} for Nova Robotics.</span>
+      </div>
+    </footer>
   </body>
 </html>
