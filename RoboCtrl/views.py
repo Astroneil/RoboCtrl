@@ -44,7 +44,7 @@ author = "Neil Isenor"
 def welderx():
 
     def buildSerial():
-        welderSerial = "%s %s %s %s %s %s %s %s %s %s %s %s %s %s" % (arm_select, theta_target, r_target, left_z, right_z, wire_speed, distance, speed, trim, argon, welder, air, led)
+        welderSerial = "%s %s %s %s %s %s %s %s %s %s %s %s %s" % (arm_select, theta_target, r_target, left_z, right_z, wire_speed, distance, speed, trim, argon, welder, air, led)
         # write serial values to welder
         ser.write(welderSerial.encode())
         print (welderSerial)
@@ -79,7 +79,7 @@ def welderx():
             arm_select = 0
             buildSerial()
 
-        elif request.form.get('argon', False) == 'Grinding Arm':
+        elif request.form.get('arm', False) == 'Grinding Arm':
             print ('GRINDING ARM')
             arm_select = 1
             buildSerial()
