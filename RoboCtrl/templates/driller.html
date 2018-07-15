@@ -3,55 +3,57 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-  <style>
-  table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-  }
-  </style>
+    <meta name="description" content="Robot Web Controller">
+    <meta name="author" content="{{ author }}">
+
   <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css')}}">
   <script src="{{url_for('static', filename='js/bootstrap.js')}}"></script>
     <title>Nova Robotics Driller</title>
   </head>
-
-  <body>
+  <style>
+  .jumbotron {
+    padding: 15px;
+  }
+  .row {
+    padding: 3px;
+  }
+</style>
+  <body style="background-color:SteelBlue;"><br>
     <main role="main" class="container">
-    <br>
-    <br>
-    <br>
-    <img src="http://192.168.0.17:8082" width=50% align=right>
+      <section class="jumbotron text-light">
 
+    <!-- <img src="http://192.168.0.17:8082" class="img-fluid mx-auto d-block"></div> -->
+    <img src="/static/images/PlaceholderImage.jpg" class="img-fluid mx-auto d-block">
+
+    <div class="container-fluid">
     <form  action="/driller" method="post">
-      <table border="0">
-      <tr><td><center>Travel</center></td><td><center>Speed</center></td><td><center>Trim</center></td></tr>
-      <tr><td><input type="number" name="driveD" value="{{ driveD }}"></td>
-        <td><input type="number" name="driveS" value="{{ driveS }}"></td>
-        <td><input type="number" name="driveT" value="{{ driveT }}"></td></tr></table>
-      <br>
-      <table border="0">
-      <tr><td><center>Drill X</center></td><td><center>Drill Z</center></td></tr>
-        <tr><td><input type="number" name="drillX" value="{{ drillX }}"></td>
-        <td><input type="number" name="drillZ" value="{{ drillZ }}"></td></tr></table>
-      <br>
-      <table border="0">
-      <tr><td><input class="btn btn-outline-primary btn-sm" type="submit" name="led" value="LED On"><br>
-        <input class="btn btn-outline-primary btn-sm" type="submit" name="led" value="LED Off"></td>
-        <td><input class="btn btn-outline-primary btn-sm" type="submit" name="drill" value="Drill On"><br>
-        <input class="btn btn-outline-primary btn-sm" type="submit" name="drill" value="Drill Off"></td></tr></table><br>
-      <p><input class="btn btn-outline-primary btn-sm" type="submit" name="submit" value="Submit"></p>
-      <p><input class="btn btn-outline-primary btn-sm" type="submit" name="submit" value="Reset All Values"></p>
+       <div class="row text-center" style="background-color:SteelBlue;">
+          <div class="col-md-4">Travel</div>
+          <div class="col-md-4">Speed</div>
+          <div class="col-md-4">Trim</div>
+        </div>
+        <div class="row text-center" style="background-color:SteelBlue;">
+          <div class="col-md-4"><input class="form-control form-control-sm" type="number" name="driveD" value="{{ driveD }}"></div>
+          <div class="col-md-4"><input class="form-control form-control-sm" type="number" name="driveS" value="{{ driveS }}"></div>
+          <div class="col-md-4"><input class="form-control form-control-sm" type="number" name="driveT" value="{{ driveT }}"></div>
+        </div>
+        <div class="row text-center" style="background-color:SteelBlue;">
+          <div class="col-md-3">Drill X</div>
+          <div class="col-md-3">Drill Z</div>
+          <div class="col-md-2"><input class="btn btn-outline-light btn-sm btn-block" type="submit" name="led" value="LED On"></div>
+          <div class="col-md-2"><input class="btn btn-outline-light btn-sm btn-block" type="submit" name="drill" value="Drill On"></div>
+          <div class="col-md-2"><input class="btn btn-outline-light btn-sm btn-block" type="submit" name="submit" value="Submit"></div>
+        </div>
+        <div class="row text-center" style="background-color:SteelBlue;">
+          <div class="col-md-3"><input class="form-control form-control-sm" type="number" name="drillX" value="{{ drillX }}"></div>
+          <div class="col-md-3"><input class="form-control form-control-sm" type="number" name="drillZ" value="{{ drillZ }}"></div>
+          <div class="col-md-2"><input class="btn btn-outline-light btn-sm btn-block" type="submit" name="led" value="LED Off"></div>
+          <div class="col-md-2"><input class="btn btn-outline-light btn-sm btn-block" type="submit" name="drill" value="Drill Off"></div>
+          <div class="col-md-2"><input class="btn btn-outline-light btn-sm btn-block" type="submit" name="submit" value="Reset All Values"></div>
+        </div>
     </form>
-  </main>
-    <br>
-    <br>
-    <br>
+</section>
+</main>
 
-    <footer class="footer">
-      <div class="container">
-        <span class="text-muted">Written by {{ author }} for Nova Robotics.</span>
-      </div>
-    </footer>
-  </body>
-  </html>
+</body>
+</html>
