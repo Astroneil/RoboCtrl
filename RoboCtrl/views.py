@@ -1,10 +1,11 @@
 from flask import Flask, render_template, request, redirect, url_for
 from RoboCtrl import app
-import time, serial, cv2
+import time, serial
 
 ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1) #Open serial port
 print ('Serial connection to Arduino initialized on',ser.name)
 
+"""
 #Detect Number of plugged-in Cameras - Broken until I can install OpenCV
 def detectNumCameras(self):
     ind = 0
@@ -16,6 +17,7 @@ def detectNumCameras(self):
         else:
             break
     return(ind)
+"""
 
 @app.route('/')
 def index():
