@@ -1,29 +1,5 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Robot Web Controller">
-    <meta name="author" content="{{ author }}">
-
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css')}}">
-  <script src="{{url_for('static', filename='js/bootstrap.js')}}"></script>
-    <title>Nova Robotics Driller</title>
-  </head>
-  <style>
-  .jumbotron {
-    padding: 15px;
-  }
-  .row {
-    padding: 3px;
-  }
-</style>
-  <body style="background-color:SteelBlue;"><br>
-    <main role="main" class="container">
-      <section class="jumbotron text-light">
-
-    <img src="http://192.168.0.17:8082" class="img-fluid mx-auto d-block"></div>
-    <!-- <img src="/static/images/PlaceholderImage.jpg" class="img-fluid mx-auto d-block"> -->
+{%extends "layout.html" %}
+{%block content %}
 
     <div class="container-fluid">
     <form  action="/driller" method="post">
@@ -52,8 +28,5 @@
           <div class="col-md-2"><input class="btn btn-outline-light btn-sm btn-block" type="submit" name="submit" value="Reset All Values"></div>
         </div>
     </form>
-</section>
-</main>
 
-</body>
-</html>
+{% endblock %}

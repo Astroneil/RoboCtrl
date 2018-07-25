@@ -1,12 +1,15 @@
 from flask import Flask, render_template, request, redirect, url_for
 from RoboCtrl import app
-import time, serial
+import time, serial, json
 
-ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1) #Open serial port
-print ('Serial connection to Arduino initialized on',ser.name)
+try:
+    ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1) #Open serial port
+    print ('Serial connection to Arduino initialized on',ser.name)
+except IOError as e:
+    print ('SERIAL CONNECTION COULD NOT BE MADE, CHECK CONNECTION AND RERUN THE APPLICATION')
 
 """
-#Detect Number of plugged-in Cameras - Broken until I can install OpenCV
+#Detect Number of plugged-in Cameras
 def detectNumCameras(self):
     ind = 0
     while True:
@@ -23,6 +26,18 @@ def detectNumCameras(self):
 def index():
     return 'Use /driller or /welder'
 
+@app.route('/click_pos', methods = ['POST','GET'])
+def click_pos():
+    x = request.args.get('x', 0, type=int)
+    y = request.args.get('y', 0, type=int)
+    width = request.args.get('width', 0, type=int)
+    height = request.args.get('height', 0, type=int)
+    percent_x = request.args.get('percent_x', 0, type=float)
+    percent_y = request.args.get('percent_y', 0, type=float)
+    f = open("click_pos.tmp", "w+")
+    f.write(str(x) + ", " + str(y) + ", " + str(width) + ", " + str(height) + ", " + str(percent_x) + ", " + str(percent_y))
+    return 'OK'
+
 # variables for template page (welder.html)
 arm_select = 0
 r_target = 0
@@ -37,6 +52,7 @@ argon = 0
 welder = 0
 air = 0
 led = 0
+click_pos = None
 author = "Neil Isenor"
 
 # we are able to make 2 different requests on our webpage
@@ -46,11 +62,13 @@ author = "Neil Isenor"
 def welderx():
 
     def buildSerial():
-        welderSerial = "%s %s %s %s %s %s %s %s %s %s %s %s %s" % (arm_select, theta_target, r_target, left_z, right_z, wire_speed, distance, speed, trim, argon, welder, air, led)
-        # write serial values to welder
-        ser.write(welderSerial.encode())
-        print (welderSerial)
-
+        try:
+            welderSerial = "%s %s %s %s %s %s %s %s %s %s %s %s %s" % (arm_select, theta_target, r_target, left_z, right_z, wire_speed, distance, speed, trim, argon, welder, air, led)
+            # write serial values to welder
+            ser.write(welderSerial.encode())
+            print (welderSerial)
+        except NameError as e:
+            print("ERROR: COULD NOT COMMUNICATE WITH ARDUINO, OPERATION FAILED")
 
     global arm_select, theta_target, r_target, left_z, right_z, distance, speed, trim, wire_speed, argon, welder, air, led
     # if we make a post request on the webpage aka press button then do stuff
@@ -66,63 +84,63 @@ def welderx():
         trim = request.form['trim']
 
 
-        if request.form.get('argon', False) == 'Argon On':
+        if request.form.get('argon', 0) == 'Argon On':
             print ('ARGON ON')
             argon = 1
             buildSerial()
 
-        elif request.form.get('argon', False) == 'Argon Off':
+        elif request.form.get('argon', 0) == 'Argon Off':
             print ('ARGON OFF')
             argon = 0
             buildSerial()
 
-        elif request.form.get('arm', False) == 'Welding Arm':
+        elif request.form.get('arm', 0) == 'Welding Arm':
             print ('WELDING ARM')
             arm_select = 0
             buildSerial()
 
-        elif request.form.get('arm', False) == 'Grinding Arm':
+        elif request.form.get('arm', 0) == 'Grinding Arm':
             print ('GRINDING ARM')
             arm_select = 1
             buildSerial()
 
-        elif request.form.get('welder', False) == 'Welder On':
+        elif request.form.get('welder', 0) == 'Welder On':
             print ('WELDER ON')
             welder = 1
             buildSerial()
 
-        elif request.form.get('welder', False) == 'Welder Off':
+        elif request.form.get('welder', 0) == 'Welder Off':
             print ('WELDER OFF')
             welder = 0
             buildSerial()
 
-        elif request.form.get('air', False) == 'Air On':
+        elif request.form.get('air', 0) == 'Air On':
             print ('AIR ON')
             air = 1
             buildSerial()
 
-        elif request.form.get('air', False) == 'Air Off':
+        elif request.form.get('air', 0) == 'Air Off':
             print ('AIR OFF')
             air = 0
             buildSerial()
 
-        elif request.form.get('led', False) == 'Left LED On':
+        elif request.form.get('led', 0) == 'Left LED On':
             print ('LEFT LED ON')
             led = 1
             buildSerial()
 
-        elif request.form.get('led', False) == 'Right LED On':
+        elif request.form.get('led', 0) == 'Right LED On':
             print ('RIGHT LED ON')
             led = 2
             buildSerial()
 
-        elif request.form.get('led', False) == 'Both LEDs On':
+        elif request.form.get('led', 0) == 'Both LEDs On':
             print ('BOTH LEDS ON')
             led = 3
             buildSerial()
 
 
-        elif request.form.get('led', False) == 'Both LEDs Off':
+        elif request.form.get('led', 0) == 'Both LEDs Off':
             print ('BOTH LEDS OFF')
             led = 0
             buildSerial()
@@ -172,6 +190,11 @@ drillOn = 0
 @app.route('/driller', methods = ['POST','GET'])
 def drillerx():
 
+    def get_post_javascript_data():
+        jsdata = request.form['javascript_data']
+        json.loads(jsdata)[0]
+        return json.loads(jsdata)[0]
+
     def buildSerial():
         drillerSerial = "%s %s %s %s %s %s %s" % (LEDOn, driveD, driveS, driveT, drillX, drillZ, drillOn)
         # write serial values to driller
@@ -191,23 +214,22 @@ def drillerx():
         drillZ = request.form['drillZ']
         drillerSerial = "%s %s %s %s %s %s %s" % (LEDOn, driveD, driveS, driveT, drillX, drillZ, drillOn)
 
-
-        if request.form.get('led', False) == 'LED On':
+        if request.form.get('led', 0) == 'LED On':
             print ('LED ON')
             LEDOn = 1
             buildSerial()
 
-        elif request.form.get('led', False) == 'LED Off':
+        elif request.form.get('led', 0) == 'LED Off':
             print ('LED OFF')
             LEDOn = 0
             buildSerial()
 
-        elif request.form.get('drill', False) == 'Drill On':
+        elif request.form.get('drill', 0) == 'Drill On':
             print ('DRILL ON')
             drillOn = 1
             buildSerial()
 
-        elif request.form.get('drill', False) == 'Drill Off':
+        elif request.form.get('drill', 0) == 'Drill Off':
             print ('DRILL OFF')
             drillOn = 0
             buildSerial()
