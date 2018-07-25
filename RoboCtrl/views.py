@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 from RoboCtrl import app
-import time, serial, json
+import time, serial, json, os
 
 try:
     ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1) #Open serial port
@@ -34,7 +34,7 @@ def click_pos():
     height = request.args.get('height', 0, type=int)
     percent_x = request.args.get('percent_x', 0, type=float)
     percent_y = request.args.get('percent_y', 0, type=float)
-    f = open("click_pos.tmp", "w+")
+    f = open("/tmp/click_pos.tmp", "w+")
     f.write(str(x) + ", " + str(y) + ", " + str(width) + ", " + str(height) + ", " + str(percent_x) + ", " + str(percent_y))
     return 'OK'
 
