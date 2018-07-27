@@ -17,7 +17,7 @@ distance = 0
 speed = 1000
 trim = 0
 argon = 0
-air = 0
+outriggers = 0
 led = 0
 click_pos = None
 author = "Neil Isenor"
@@ -27,7 +27,7 @@ def welderx():
 
     def buildSerial():
         try:
-            welderSerial = "%s %s %s %s %s %s %s %s %s %s %s %s" % (arm_select, theta_target, r_target, left_z, right_z, wire_speed, distance, speed, trim, argon, air, led)
+            welderSerial = "%s %s %s %s %s %s %s %s %s %s %s %s" % (arm_select, theta_target, r_target, left_z, right_z, wire_speed, distance, speed, trim, argon, outriggers, led)
             # write serial values to welder
             # ser.write(welderSerial.encode())
             print (welderSerial)
@@ -51,14 +51,14 @@ def welderx():
             f.write(str(wire_speed))
             f = open("/tmp/argon.tmp", "w+")
             f.write(str(argon))
-            f = open("/tmp/air.tmp", "w+")
-            f.write(str(air))
+            f = open("/tmp/outriggers.tmp", "w+")
+            f.write(str(outriggers))
             f = open("/tmp/wled.tmp", "w+")
             f.write(str(led))
         except IOError as e:
             print("ERROR: OPERATION FAILED")
 
-    global arm_select, theta_target, r_target, left_z, right_z, distance, speed, trim, wire_speed, argon, air, led
+    global arm_select, theta_target, r_target, left_z, right_z, distance, speed, trim, wire_speed, argon, outriggers, led
     # if we make a post request on the webpage aka press button then do stuff
     if request.method == 'POST':
 
@@ -91,14 +91,14 @@ def welderx():
             arm_select = 1
             buildSerial()
 
-        elif request.form.get('air', 0) == 'Air On':
-            print ('AIR ON')
-            air = 1
+        elif request.form.get('outriggers', 0) == 'Outriggers On':
+            print ('outriggers ON')
+            outriggers = 1
             buildSerial()
 
-        elif request.form.get('air', 0) == 'Air Off':
-            print ('AIR OFF')
-            air = 0
+        elif request.form.get('outriggers', 0) == 'Outriggers Off':
+            print ('outriggers OFF')
+            outriggers = 0
             buildSerial()
 
         elif request.form.get('led', 0) == 'Left LED On':
@@ -144,7 +144,7 @@ def welderx():
             argon = 0
             welder = 0
             led = 0
-            air = 0
+            outriggers = 0
 
         else:
             pass
@@ -152,4 +152,4 @@ def welderx():
 
 
     # the default page to display will be our template with our template variables
-    return render_template('welder.html', author=author, arm_select=arm_select, theta_target=theta_target, r_target=r_target, left_z=left_z, right_z=right_z, wire_speed=wire_speed, distance=distance, speed=speed, trim=trim, argon=argon, led=led, air=air)
+    return render_template('welder.html', author=author, arm_select=arm_select, theta_target=theta_target, r_target=r_target, left_z=left_z, right_z=right_z, wire_speed=wire_speed, distance=distance, speed=speed, trim=trim, argon=argon, led=led, outriggers=outriggers)
