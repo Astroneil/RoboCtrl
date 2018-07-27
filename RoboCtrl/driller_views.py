@@ -97,4 +97,4 @@ def drillerx():
             pass
 
     # the default page to display will be our template with our template variables
-    return render_template('driller.html', author=author, led=led, distance=distance, speed=speed, trim=trim, drill_x_position=drill_x_position, drill_depth=drill_depth, drill_enable=drill_enable)
+    return render_template('driller.html', author=author, led=led, distance=distance, speed=speed, trim=trim, drill_x_position=drill_x_position, drill_depth=drill_depth, drill_enable=drill_enable, localip=localip)

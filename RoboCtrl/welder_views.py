@@ -152,4 +152,4 @@ def welderx():
 
 
     # the default page to display will be our template with our template variables
-    return render_template('welder.html', author=author, arm_select=arm_select, theta_target=theta_target, r_target=r_target, left_z=left_z, right_z=right_z, wire_speed=wire_speed, distance=distance, speed=speed, trim=trim, argon=argon, led=led, outriggers=outriggers)
+    return render_template('welder.html', author=author, arm_select=arm_select, theta_target=theta_target, r_target=r_target, left_z=left_z, right_z=right_z, wire_speed=wire_speed, distance=distance, speed=speed, trim=trim, argon=argon, led=led, outriggers=outriggers, localip=localip)

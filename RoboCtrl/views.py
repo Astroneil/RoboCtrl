@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, Blueprint
 from RoboCtrl import app
-import time, serial, json
+import time, serial, json, socket
 
 views = Blueprint('views', __name__,
                         template_folder='templates')
@@ -11,6 +11,8 @@ try:
 except IOError as e:
     print ('SERIAL CONNECTION COULD NOT BE MADE, CHECK CONNECTION AND RERUN THE APPLICATION')
 """
+
+localip = socket.gethostbyname(socket.getfqdn())
 
 @views.route('/')
 def index():
