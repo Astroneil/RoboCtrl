@@ -21,8 +21,8 @@
   <main role="main" class="container-fluid w-90">
     <section class="jumbotron text-light">
 
-      <img src="http://{{localip}}:8080" onerror="/static/images/PlaceholderImage4-3.jpg" id="main_feed" class="img-fluid mx-auto float-left d-block w-50"></div>
-      <img src="http://{{localip}}:8082" onerror="/static/images/PlaceholderImage4-3.jpg" class="img-fluid mx-auto float-right d-block w-50"></div>
+      <img src="http://{{localip}}:8080" onerror="this.src='/static/images/PlaceholderImage4-3.jpg'" id="main_feed" class="img-fluid mx-auto float-left d-block w-50"></div>
+      <img src="http://{{localip}}:8082" onerror="this.src='/static/images/PlaceholderImage4-3.jpg'" class="img-fluid mx-auto float-right d-block w-50"></div>
 
 {% block content %}{% endblock %}
 
