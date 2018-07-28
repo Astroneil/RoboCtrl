@@ -13,6 +13,7 @@ except IOError as e:
 """
 
 localip = socket.gethostbyname(socket.getfqdn())
+print(localip)
 
 @views.route('/')
 def index():
