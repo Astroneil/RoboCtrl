@@ -8,9 +8,10 @@ welder_views = Blueprint('welder_views', __name__,
 
 # variables for template page (welder.html)
 arm_select = 0
-r_target = 0
-left_z = 0
 theta_target = 0
+r_target = 0
+arm_speed_target = 20
+left_z = 0
 right_z = 0
 wire_speed = 0
 distance = 0
@@ -27,7 +28,7 @@ def welderx():
 
     def buildSerial():
         try:
-            welderSerial = "%s %s %s %s %s %s %s %s %s %s %s %s" % (arm_select, theta_target, r_target, left_z, right_z, wire_speed, distance, speed, trim, argon, outriggers, led)
+            welderSerial = "%s %s %s %s %s %s %s %s %s %s %s %s" % (arm_select, theta_target, r_target, arm_speed_target, left_z, right_z, wire_speed, distance, speed, trim, argon, outriggers, led)
             # write serial values to welder
             # ser.write(welderSerial.encode())
             print (welderSerial)
@@ -37,6 +38,8 @@ def welderx():
             f.write(str(theta_target))
             f = open("/tmp/welder/rw_r_target", "w+")
             f.write(str(r_target))
+            f = open("/tmp/welder/rw_arm_speed_target", "w+")
+            f.write(str(arm_speed_target))
             f = open("/tmp/welder/rw_left_z", "w+")
             f.write(str(left_z))
             f = open("/tmp/welder/rw_right_z", "w+")
@@ -58,12 +61,13 @@ def welderx():
         except IOError as e:
             print("ERROR: OPERATION FAILED")
 
-    global arm_select, theta_target, r_target, left_z, right_z, distance, speed, trim, wire_speed, argon, outriggers, led
+    global arm_select, theta_target, r_target, arm_speed_target, left_z, right_z, distance, speed, trim, wire_speed, argon, outriggers, led
     # if we make a post request on the webpage aka press button then do stuff
     if request.method == 'POST':
 
         theta_target = request.form['theta_target']
         r_target = request.form['r_target']
+        arm_speed_target = request.form['arm_speed_target']
         left_z = request.form['left_z']
         right_z = request.form['right_z']
         wire_speed = request.form['wire_speed']
@@ -135,6 +139,7 @@ def welderx():
             arm_select = 0
             theta_target = 0
             r_target = 0
+            arm_speed_target = 20
             left_z = 0
             right_z = 0
             wire_speed = 0
@@ -152,4 +157,4 @@ def welderx():
 
 
     # the default page to display will be our template with our template variables
-    return render_template('welder.html', author=author, arm_select=arm_select, theta_target=theta_target, r_target=r_target, left_z=left_z, right_z=right_z, wire_speed=wire_speed, distance=distance, speed=speed, trim=trim, argon=argon, led=led, outriggers=outriggers, localip=localip)
+    return render_template('welder.html', author=author, arm_select=arm_select, theta_target=theta_target, r_target=r_target, arm_speed_target=arm_speed_target, left_z=left_z, right_z=right_z, wire_speed=wire_speed, distance=distance, speed=speed, trim=trim, argon=argon, led=led, outriggers=outriggers, localip=localip)
