@@ -28,7 +28,7 @@ def welderx():
 
     def buildSerial():
         try:
-            welderSerial = "%s %s %s %s %s %s %s %s %s %s %s %s" % (arm_select, theta_target, r_target, arm_speed_target, left_z, right_z, wire_speed, distance, speed, trim, argon, outriggers, led)
+            welderSerial = "%s %s %s %s %s %s %s %s %s %s %s %s %s" % (arm_select, theta_target, r_target, arm_speed_target, left_z, right_z, wire_speed, distance, speed, trim, argon, outriggers, led)
             # write serial values to welder
             # ser.write(welderSerial.encode())
             print (welderSerial)
