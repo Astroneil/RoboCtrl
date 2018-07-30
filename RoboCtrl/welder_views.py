@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, Blueprint
 from RoboCtrl import app
 from RoboCtrl.views import *
-import time, serial
+import time, serial, os
 
 welder_views = Blueprint('welder_views', __name__,
                         template_folder='templates')
@@ -19,6 +19,7 @@ speed = 1000
 trim = 0
 argon = 0
 outriggers = 0
+grinder = 0
 led = 0
 click_pos = None
 author = "Neil Isenor"
@@ -28,40 +29,59 @@ def welderx():
 
     def buildSerial():
         try:
-            welderSerial = "%s %s %s %s %s %s %s %s %s %s %s %s %s" % (arm_select, theta_target, r_target, arm_speed_target, left_z, right_z, wire_speed, distance, speed, trim, argon, outriggers, led)
+            welderSerial = "%s %s %s %s %s %s %s %s %s %s %s %s %s %s" % (arm_select, theta_target, r_target, arm_speed_target, left_z, right_z, wire_speed, distance, speed, trim, argon, outriggers, grinder, led)
+            print (welderSerial)
             # write serial values to welder
             # ser.write(welderSerial.encode())
-            print (welderSerial)
+            newpath = r'/tmp/welder'
+            if not os.path.exists(newpath):
+                os.makedirs(newpath)
             f = open("/tmp/welder/rw_arm_select", "w+")
             f.write(str(arm_select))
+            f.close()
             f = open("/tmp/welder/rw_theta_target", "w+")
             f.write(str(theta_target))
+            f.close()
             f = open("/tmp/welder/rw_r_target", "w+")
             f.write(str(r_target))
+            f.close()
             f = open("/tmp/welder/rw_arm_speed_target", "w+")
             f.write(str(arm_speed_target))
+            f.close()
             f = open("/tmp/welder/rw_left_z", "w+")
             f.write(str(left_z))
+            f.close()
             f = open("/tmp/welder/rw_right_z", "w+")
             f.write(str(arm_select))
+            f.close()
             f = open("/tmp/welder/rw_distance", "w+")
             f.write(str(distance))
+            f.close()
             f = open("/tmp/welder/rw_speed", "w+")
             f.write(str(speed))
+            f.close()
             f = open("/tmp/welder/rw_trim", "w+")
             f.write(str(trim))
+            f.close()
             f = open("/tmp/welder/rw_wire_speed", "w+")
             f.write(str(wire_speed))
+            f.close()
             f = open("/tmp/welder/rw_argon", "w+")
             f.write(str(argon))
+            f.close()
             f = open("/tmp/welder/rw_outriggers", "w+")
             f.write(str(outriggers))
+            f.close()
+            f = open("/tmp/welder/rw_grinder", "w+")
+            f.write(str(grinder))
+            f.close()
             f = open("/tmp/welder/rw_led", "w+")
             f.write(str(led))
+            f.close()
         except IOError as e:
             print("ERROR: OPERATION FAILED")
 
-    global arm_select, theta_target, r_target, arm_speed_target, left_z, right_z, distance, speed, trim, wire_speed, argon, outriggers, led
+    global arm_select, theta_target, r_target, arm_speed_target, left_z, right_z, distance, speed, trim, wire_speed, argon, outriggers, grinder, led
     # if we make a post request on the webpage aka press button then do stuff
     if request.method == 'POST':
 
@@ -96,13 +116,23 @@ def welderx():
             buildSerial()
 
         elif request.form.get('outriggers', 0) == 'Outriggers On':
-            print ('outriggers ON')
+            print ('OUTRIGGERS ON')
             outriggers = 1
             buildSerial()
 
         elif request.form.get('outriggers', 0) == 'Outriggers Off':
-            print ('outriggers OFF')
+            print ('OUTRIGGERS OFF')
             outriggers = 0
+            buildSerial()
+
+        elif request.form.get('grinder', 0) == 'Grinder On':
+            print ('GRINDER ON')
+            grinders = 1
+            buildSerial()
+
+        elif request.form.get('grinder', 0) == 'Grinder Off':
+            print ('GRINDER OFF')
+            grinders = 0
             buildSerial()
 
         elif request.form.get('led', 0) == 'Left LED On':
@@ -148,8 +178,9 @@ def welderx():
             trim = 0
             argon = 0
             welder = 0
-            led = 0
             outriggers = 0
+            grinder = 0
+            led = 0
 
         else:
             pass
@@ -157,4 +188,4 @@ def welderx():
 
 
     # the default page to display will be our template with our template variables
-    return render_template('welder.html', author=author, arm_select=arm_select, theta_target=theta_target, r_target=r_target, arm_speed_target=arm_speed_target, left_z=left_z, right_z=right_z, wire_speed=wire_speed, distance=distance, speed=speed, trim=trim, argon=argon, led=led, outriggers=outriggers, localip=localip)
+    return render_template('welder.html', author=author, arm_select=arm_select, theta_target=theta_target, r_target=r_target, arm_speed_target=arm_speed_target, left_z=left_z, right_z=right_z, wire_speed=wire_speed, distance=distance, speed=speed, trim=trim, argon=argon, grinder=grinder, led=led, outriggers=outriggers, localip=localip)
