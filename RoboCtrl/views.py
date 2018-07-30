@@ -27,8 +27,9 @@ def click_pos():
     height = request.args.get('height', 0, type=int)
     percent_x = request.args.get('percent_x', 0, type=float)
     percent_y = request.args.get('percent_y', 0, type=float)
-    f = open("/tmp/click_pos.tmp", "w+")
+    f = open("/tmp/click_pos", "w+")
     f.write(str(x) + ", " + str(y) + ", " + str(width) + ", " + str(height) + ", " + str(percent_x) + ", " + str(percent_y))
+    f.close()
     return 'OK'
 
 if __name__ == "__main__":
