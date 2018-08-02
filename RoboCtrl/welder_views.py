@@ -24,20 +24,48 @@ click_pos = None
 run_script = 0
 author = "Neil Isenor"
 
+if not os.path.exists("/tmp/welder"):
+    os.makedirs("/tmp/welder")
+
+f = open("/tmp/welder/rw_run_script", "w+")
+f.write(str(0))
+f.close()
+
 @welder_views.route('/welder', methods = ['POST','GET'])
 def welderx():
 
+    #Prevent caching
+    @welder_views.after_request
+    def add_header(r):
+        r.headers["Cache-Control"] = "no-cache, no-store, must-revalidate, 'public, max-age=0'"
+        r.headers["Pragma"] = "no-cache"
+        r.headers["Expires"] = "0"
+        return r
+
+    global arm_select, theta_target, r_target, arm_speed_target, left_z, right_z, distance, speed, trim, wire_speed, argon, outriggers, grinder, led, run_script
+
+    try:
+        f = open("/tmp/welder/rw_run_script", "r")
+        run_script = f.read()
+        run_script = int(run_script)
+        if run_script == 1:
+            print(" ** Script is currently running. Please wait...")
+            f.write(str(run_script))
+            print(run_script)
+            f.close()
+        else:
+            f.close()
+    except:
+        pass
+
     def buildSerial():
         try:
-            welderSerial = "%s %s %s %s %s %s %s %s %s %s %s %s %s %s" % (arm_select, theta_target, r_target, arm_speed_target,
+            welderSerial = "%s %s %s %s %s %s %s %s %s %s %s %s %s %s %s" % (arm_select, theta_target, r_target, arm_speed_target,
                                                                          left_z, right_z, wire_speed, distance, speed, trim,
-                                                                         argon, outriggers, grinder, led)
+                                                                         argon, outriggers, grinder, led, run_script)
             print (welderSerial)
             # write serial values to welder
             # ser.write(welderSerial.encode())
-            newpath = r'/tmp/welder'
-            if not os.path.exists(newpath):
-                os.makedirs(newpath)
             f = open("/tmp/welder/rw_arm_select", "w+")
             f.write(str(arm_select))
             f.close()
@@ -86,7 +114,6 @@ def welderx():
         except IOError as e:
             print("ERROR: OPERATION FAILED")
 
-    global arm_select, theta_target, r_target, arm_speed_target, left_z, right_z, distance, speed, trim, wire_speed, argon, outriggers, grinder, led, run_script
     # if we make a post request on the webpage aka press button then do stuff
     if request.method == 'POST':
 
@@ -174,6 +201,9 @@ def welderx():
         elif request.form['submit'] == 'Submit':
             print ('SUBMIT')
             buildSerial()
+
+        elif request.form['submit'] == 'invis_submit':
+            pass
 
         # if we press the reset all values button
         elif request.form['submit'] == 'Reset All Values':

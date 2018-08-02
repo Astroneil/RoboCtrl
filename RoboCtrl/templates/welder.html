@@ -3,6 +3,7 @@
 
         <div class="container-fluid">
     <form  action="/welder" method="post">
+      <input type="submit" name="submit" value="invis_submit" id="invis_submit" style="display: none" />
       <div class="row text-center" style="background-color:SteelBlue;">
         <div class="col-md-2">Theta Target</div>
         <div class="col-md-2">R Target</div>
@@ -18,21 +19,20 @@
         <div class="col-md-2"><input class="form-control form-control-sm" type="number" name="left_z" value="{{ left_z }}"></div>
         <div class="col-md-2"><input class="form-control form-control-sm" type="number" name="right_z" value="{{ right_z }}"></div>
         <div class="col-md-2"><input class="form-control form-control-sm" type="number" name="wire_speed" value="{{ wire_speed }}"></div>
-        <input type="submit" name="submit" style="display: none" />
       </div>
       <div class="row text-center" style="background-color:SteelBlue;">
         <div class="col-md-2">Travel</div>
         <div class="col-md-2">Speed</div>
         <div class="col-md-2">Trim</div>
         <div class="col-md-3"><input class="btn {% if arm_select == 1 %}btn-outline-light{% else %}btn-success{% endif %} btn-sm btn-block" type="submit" name="arm_select" value="Welding Arm"></div>
-        <div class="col-md-3"><input class="btn {% if run_script == 1 %}btn-outline-light{% else %}btn-success{% endif %} btn-sm btn-block" type="submit" name="run_script" value="Stop Script"></div>
+        <div class="col-md-3"><input class="btn {% if run_script == 1 %}btn-outline-light{% elif run_script == 0 %}btn-success{% endif %} btn-sm btn-block" type="submit" name="run_script" value="Stop Script"></div>
       </div>
       <div class="row text-center" style="background-color:SteelBlue;">
         <div class="col-md-2"><input class="form-control form-control-sm" type="number" name="distance" value="{{ distance }}"></div>
         <div class="col-md-2"><input class="form-control form-control-sm" type="number" name="speed" value="{{ speed }}"></div>
         <div class="col-md-2"><input class="form-control form-control-sm" type="number" name="trim" value="{{ trim }}"></div>
         <div class="col-md-3"><input class="btn {% if arm_select == 0 %}btn-outline-light{% else %}btn-success{% endif %} btn-sm btn-block" type="submit" name="arm_select" value="Grinding Arm"></div>
-        <div class="col-md-3"><input class="btn {% if run_script == 0 %}btn-outline-light{% else %}btn-success{% endif %} btn-sm btn-block" type="submit" name="run_script" value="Run Script"></div>
+        <div class="col-md-3"><input class="btn {% if run_script == 0 %}btn-outline-light{% elif run_script == 1 %}btn-success{% endif %} btn-sm btn-block" type="submit" name="run_script" value="Run Script"></div>
       </div>
       <div class="row text-center" style="background-color:SteelBlue;">
         <div class="col-md-2"><input class="btn {% if led == 1 %}btn-success{% else %}btn-outline-light{% endif %} btn-sm btn-block" type="submit" name="led" value="Left LED On"></div>
@@ -51,5 +51,10 @@
         <div class="col-md-2"><input class="btn btn-outline-light btn-sm btn-block" type="submit" name="submit" value="Submit"></div>
       </div>
     </form>
+    <script type="text/javascript">
+    if ({{ run_script }} == 1){
+      setInterval(function () {document.getElementById("invis_submit").click();}, 5000);
+    } else {}
+    </script>
 
 {% endblock %}

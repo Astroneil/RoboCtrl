@@ -12,6 +12,7 @@ except IOError as e:
     print ('SERIAL CONNECTION COULD NOT BE MADE, CHECK CONNECTION AND RERUN THE APPLICATION')
 """
 
+# Define the local ip address
 localip = socket.gethostbyname(socket.getfqdn())
 print(" * Local IP is " + localip)
 
