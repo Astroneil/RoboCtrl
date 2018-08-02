@@ -30,7 +30,7 @@ def welderx():
 
     def buildSerial():
         try:
-            welderSerial = "%s %s %s %s %s %s %s %s %s %s %s %s %s %s" % (arm_select, theta_target, r_target, arm_speed_target, left_z, right_z, wire_speed, distance, speed, trim, argon, outriggers, grinder, led)
+            welderSerial = "%s %s %s %s %s %s %s %s %s %s %s %s %s %s %s" % (arm_select, theta_target, r_target, arm_speed_target, left_z, right_z, wire_speed, distance, speed, trim, argon, outriggers, grinder, led, run_script)
             print (welderSerial)
             # write serial values to welder
             # ser.write(welderSerial.encode())
@@ -131,12 +131,12 @@ def welderx():
 
         elif request.form.get('grinder', 0) == 'Grinder On':
             print ('GRINDER ON')
-            grinders = 1
+            grinder = 1
             buildSerial()
 
         elif request.form.get('grinder', 0) == 'Grinder Off':
             print ('GRINDER OFF')
-            grinders = 0
+            grinder = 0
             buildSerial()
 
         elif request.form.get('led', 0) == 'Left LED On':
