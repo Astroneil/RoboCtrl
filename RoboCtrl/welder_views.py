@@ -109,12 +109,12 @@ def welderx():
             argon = 0
             buildSerial()
 
-        elif request.form.get('arm', 0) == 'Welding Arm':
+        elif request.form.get('arm_select', 0) == 'Welding Arm':
             print ('WELDING ARM')
             arm_select = 0
             buildSerial()
 
-        elif request.form.get('arm', 0) == 'Grinding Arm':
+        elif request.form.get('arm_select', 0) == 'Grinding Arm':
             print ('GRINDING ARM')
             arm_select = 1
             buildSerial()
