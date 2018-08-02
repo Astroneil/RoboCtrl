@@ -3,8 +3,7 @@ from RoboCtrl import app
 from RoboCtrl.views import *
 import time, serial, os
 
-welder_views = Blueprint('welder_views', __name__,
-                        template_folder='templates')
+welder_views = Blueprint('welder_views', __name__, template_folder='templates')
 
 # variables for template page (welder.html)
 arm_select = 0
@@ -30,7 +29,9 @@ def welderx():
 
     def buildSerial():
         try:
-            welderSerial = "%s %s %s %s %s %s %s %s %s %s %s %s %s %s %s" % (arm_select, theta_target, r_target, arm_speed_target, left_z, right_z, wire_speed, distance, speed, trim, argon, outriggers, grinder, led, run_script)
+            welderSerial = "%s %s %s %s %s %s %s %s %s %s %s %s %s %s" % (arm_select, theta_target, r_target, arm_speed_target,
+                                                                         left_z, right_z, wire_speed, distance, speed, trim,
+                                                                         argon, outriggers, grinder, led)
             print (welderSerial)
             # write serial values to welder
             # ser.write(welderSerial.encode())
@@ -53,7 +54,7 @@ def welderx():
             f.write(str(left_z))
             f.close()
             f = open("/tmp/welder/rw_right_z", "w+")
-            f.write(str(arm_select))
+            f.write(str(right_z))
             f.close()
             f = open("/tmp/welder/rw_distance", "w+")
             f.write(str(distance))
