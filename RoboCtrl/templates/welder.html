@@ -1,7 +1,7 @@
 {%extends "layout.html" %}
 {%block content %}
 
-        <div class="container-fluid">
+    <div class="container-fluid">
     <form  action="/welder" method="post">
       <input type="submit" name="submit" value="invis_submit" id="invis_submit" style="display: none" />
       <div class="row text-center" style="background-color:SteelBlue;">
@@ -54,6 +54,7 @@
     <script type="text/javascript">
     if ({{ run_script }} == 1){
       setInterval(function () {document.getElementById("invis_submit").click();}, 5000);
+      alert("Script is running, please wait...");
     } else {}
     </script>
 
